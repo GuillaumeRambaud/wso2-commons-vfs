@@ -63,6 +63,15 @@ public class WebdavFileProvider extends HttpFileProvider {
     }
 
     /**
+     * Gets the proper physical URL scheme on logical WebDAV scheme. 'https' on 'webdavs', 'http' otherwise.
+     * @param name The FileName.
+     * @return proper physical URL scheme on logical WebDAV scheme. 'https' on 'webdavs', 'http' otherwise
+     */
+    static String getURLScheme(final GenericFileName name) {
+        return "webdavs".equals(name.getScheme()) ? "https" : "http";
+    }
+
+    /**
      * Creates a {@link FileSystem}.
      * <p>
      * If you're looking at this method and wondering how to get a FileSystemOptions object bearing the proxy host and
@@ -84,7 +93,7 @@ public class WebdavFileProvider extends HttpFileProvider {
         try {
             authData = UserAuthenticatorUtils.authenticate(fsOpts, AUTHENTICATOR_TYPES);
 
-            httpClient = HttpClientFactory.createConnection(WebdavFileSystemConfigBuilder.getInstance(), "http",
+            httpClient = HttpClientFactory.createConnection(WebdavFileSystemConfigBuilder.getInstance(), getURLScheme(rootName),
                     rootName.getHostName(), rootName.getPort(),
                     UserAuthenticatorUtils.toString(UserAuthenticatorUtils.getData(authData,
                             UserAuthenticationData.USERNAME, UserAuthenticatorUtils.toChar(rootName.getUserName()))),
