@@ -623,7 +623,7 @@ public class WebdavFileObject extends HttpFileObject<WebdavFileSystem> {
             user = name.getUserName();
             password = name.getPassword();
         }
-        final URLFileName newFile = new URLFileName("http", name.getHostName(), name.getPort(), name.getDefaultPort(),
+        final URLFileName newFile = new URLFileName(WebdavFileProvider.getURLScheme(name), name.getHostName(), name.getPort(), name.getDefaultPort(),
                 user, password, name.getPath(), name.getType(), name.getQueryString());
         try {
             return newFile.getURIEncoded(this.getUrlCharset());

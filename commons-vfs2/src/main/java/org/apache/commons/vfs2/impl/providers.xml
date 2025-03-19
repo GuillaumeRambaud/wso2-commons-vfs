@@ -76,6 +76,11 @@
         <if-available class-name="org.apache.commons.httpclient.HttpClient"/>
         <if-available class-name="org.apache.jackrabbit.webdav.client.methods.DavMethod"/>
     </provider>
+
+    <provider class-name="org.apache.commons.vfs2.provider.webdav.WebdavsFileProvider">
+        <scheme name="webdavs"/>
+        <if-available class-name="org.apache.commons.httpclient.HttpClient"/>
+    </provider>
     <!--
     <provider class-name="org.apache.commons.vfs2.provider.svn.SvnFileProvider">
         <scheme name="svnhttps"/>
